@@ -3,7 +3,7 @@
 "use strict";
 
 // ── Config ──────────────────────────────────────────────────
-const API = localStorage.getItem("mathquest_api_url") || "http://localhost:8001";
+const API = localStorage.getItem("mathquest_api_url") || "https://mathquest-qh53.onrender.com";
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
