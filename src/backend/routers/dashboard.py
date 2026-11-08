@@ -51,6 +51,76 @@ def listar_filhos_dashboard(
     return result
 
 
+@router.get("/busca")
+def dashboard_busca_por_nome(
+    nome: str,
+    session: Session = Depends(get_session),
+):
+    """Dashboard público: pai digita o nome do filho e vê o progresso.
+    Sem autenticação. Para MVP/uso familiar."""
+    nome_limpo = nome.strip()
+    if not nome_limpo:
+        raise HTTPException(400, "Informe o nome do jogador")
+
+    jogador = session.exec(
+        select(Jogador).where(Jogador.nome == nome_limpo)
+    ).first()
+    if not jogador:
+        raise HTTPException(404, f"Nenhum jogador encontrado com o nome \"{nome_limpo}\"")
+
+    progs = session.exec(select(Progresso).where(Progresso.jogador_id == jogador.id)).all()
+    por_operacao = []
+    total_acertos = 0
+    total_desafios = 0
+    soma_tempo = 0.0
+
+    for p in progs:
+        total = p.total_acertos + p.total_erros
+        taxa = round((p.total_acertos / total * 100) if total > 0 else 0, 1)
+        total_acertos += p.total_acertos
+        total_desafios += total
+        soma_tempo += p.tempo_medio * total
+        por_operacao.append(ProgressoResponse(
+            operacao=p.operacao, nivel=p.nivel,
+            total_acertos=p.total_acertos, total_erros=p.total_erros,
+            streak_atual=p.streak_atual, melhor_streak=p.melhor_streak,
+            tempo_medio=round(p.tempo_medio, 2), taxa_acerto=taxa
+        ))
+
+    taxa_geral = round((total_acertos / total_desafios * 100) if total_desafios > 0 else 0, 1)
+    tempo_medio_geral = round((soma_tempo / total_desafios) if total_desafios > 0 else 0, 2)
+
+    conquistas = session.exec(select(Conquista).where(Conquista.jogador_id == jogador.id)).all()
+    lista_conquistas = [c.conquista_id for c in conquistas]
+
+    ultimos = session.exec(
+        select(Resultado)
+        .where(Resultado.jogador_id == jogador.id)
+        .order_by(Resultado.criado_em.desc())
+        .limit(20)
+    ).all()
+    ultimos_dict = [
+        {
+            "operacao": r.operacao, "modo": r.modo, "nivel": r.nivel,
+            "acertou": r.acertou, "tempo": r.tempo_segundos,
+            "data": r.criado_em.isoformat()
+        }
+        for r in ultimos
+    ]
+
+    return DashboardResponse(
+        jogador=jogador.nome,
+        total_desafios=total_desafios,
+        total_acertos=total_acertos,
+        taxa_geral=taxa_geral,
+        tempo_medio_geral=tempo_medio_geral,
+        por_operacao=por_operacao,
+        conquistas=lista_conquistas,
+        ultimos_resultados=ultimos_dict
+    )
+
+
+
 @router.get("/{jogador_id}", response_model=DashboardResponse)
 def dashboard_filho(
     jogador_id: int,
@@ -114,3 +184,5 @@ def dashboard_filho(
         conquistas=lista_conquistas,
         ultimos_resultados=ultimos_dict
     )
+
+# ── Endpoint público (sem JWT) — busca por nome ──────────────

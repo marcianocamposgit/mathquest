@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathQuest — Painel do Pai</title>
+    <link rel="stylesheet" href="pai.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4"></script>
+</head>
+<body>
+
+<div id="app-pai">
+
+    <!-- ========== TELA BUSCA ========== -->
+    <div id="tela-busca" class="tela active">
+        <div class="busca-card">
+            <div class="logo">
+                <span class="logo-icon">📐</span>
+                <h1>MathQuest</h1>
+                <p>Veja o progresso do seu filho</p>
+            </div>
+
+            <div class="busca-form">
+                <input type="text" id="input-nome"
+                       placeholder="Nome do seu filho"
+                       autocomplete="off"
+                       maxlength="30">
+                <button id="btn-buscar" class="btn-primario" onclick="PaiApp.buscar()">
+                    Ver Progresso
+                </button>
+            </div>
+
+            <p id="msg-busca" class="msg-erro hidden"></p>
+
+            <div id="historico-nomes" class="historico-nomes hidden">
+                <p class="label-recentes">Buscas recentes:</p>
+                <div id="nomes-recentes"></div>
+            </div>
+
+            <a href="../index.html" class="link-voltar">← Voltar ao MathQuest</a>
+        </div>
+    </div>
+
+    <!-- ========== TELA DASHBOARD ========== -->
+    <div id="tela-dashboard" class="tela">
+        <header class="top-bar">
+            <button onclick="PaiApp.voltar()" class="btn-ghost">← Buscar outro</button>
+            <h2 id="dash-nome"></h2>
+        </header>
+
+        <!-- KPIs -->
+        <div class="kpis">
+            <div class="kpi">
+                <span class="kpi-label">Desafios</span>
+                <strong id="kpi-total" class="kpi-valor">—</strong>
+            </div>
+            <div class="kpi">
+                <span class="kpi-label">Acertos</span>
+                <strong id="kpi-acertos" class="kpi-valor">—</strong>
+            </div>
+            <div class="kpi">
+                <span class="kpi-label">Taxa</span>
+                <strong id="kpi-taxa" class="kpi-valor">—</strong>
+            </div>
+            <div class="kpi">
+                <span class="kpi-label">Tempo Médio</span>
+                <strong id="kpi-tempo" class="kpi-valor">—</strong>
+            </div>
+        </div>
+
+        <!-- Gráfico 1: taxa por operação -->
+        <section class="card-section">
+            <h3>Desempenho por Operação</h3>
+            <div class="chart-wrap"><canvas id="chart-operacoes"></canvas></div>
+        </section>
+
+        <!-- Gráfico 2: acertos vs erros -->
+        <section class="card-section">
+            <h3>Acertos vs Erros</h3>
+            <div class="chart-wrap"><canvas id="chart-acertos-erros"></canvas></div>
+        </section>
+
+        <!-- Conquistas -->
+        <section class="card-section">
+            <h3>Conquistas Desbloqueadas</h3>
+            <div id="conquistas-grid" class="conquistas-grid">
+                <p class="vazio">Nenhuma conquista ainda.</p>
+            </div>
+        </section>
+
+        <!-- Streaks -->
+        <section class="card-section">
+            <h3>Sequências por Operação</h3>
+            <div id="streaks-grid" class="streaks-grid"></div>
+        </section>
+
+        <!-- Últimos desafios -->
+        <section class="card-section">
+            <h3>Últimos Desafios</h3>
+            <ul id="lista-historico" class="historico"></ul>
+        </section>
+    </div>
+
+    <!-- Loading -->
+    <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+    </div>
+
+</div>
+
+<script src="pai.js"></script>
+</body>
+</html>
