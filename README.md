@@ -15,7 +15,7 @@ O MathQuest nasceu de uma necessidade real: ensinar matemática de um jeito que 
 | Fase 1 — Frontend/PWA | ✅ Completa | App completo com 4 operações, 3 modos, progressão, conquistas, sons, PWA offline |
 | Fase 2 — Backend/API | ✅ Completa | FastAPI + SQLite, auth criança/pai, multi-usuário, sync offline-first |
 | Painel do Pai | ✅ Completo | Dashboard visual com gráficos, busca por nome, sem cadastro obrigatório |
-| Deploy Nuvem | 🔲 Pendente | Backend no Render + PostgreSQL no Aiven/Supabase |
+| Deploy Nuvem | ✅ Completo | Backend no Render (mathquest-qh53.onrender.com) + PostgreSQL no Aiven |
 
 ## Funcionalidades
 
