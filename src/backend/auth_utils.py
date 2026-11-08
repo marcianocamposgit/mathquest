@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-SECRET_KEY = os.getenv("SECRET_KEY", "mathquest-dev-secret-change-in-production")
+SECRET_KEY = os.getenv("SECRET_KEY") or os.getenv("JWT_SECRET", "mathquest-dev-secret-change-in-production")
 ALGORITHM = "HS256"
 TOKEN_EXPIRE_DAYS = 30
 
