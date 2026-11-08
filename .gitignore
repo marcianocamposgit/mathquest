@@ -24,3 +24,7 @@ Thumbs.db
 dist/
 build/
 *.db
+
+*.pyc
+*.db-journal
+.pytest_cache/
