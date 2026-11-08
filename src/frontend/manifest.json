@@ -1,0 +1,19 @@
+{
+    "name": "MathQuest - Aprenda Matemática",
+    "short_name": "MathQuest",
+    "description": "Sistema educacional de matemática com macetes visuais",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#1A1A2E",
+    "theme_color": "#6C5CE7",
+    "lang": "pt-BR",
+    "icons": [
+        {
+            "src": "assets/images/icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ]
+}

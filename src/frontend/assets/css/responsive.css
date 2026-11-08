@@ -1,0 +1,36 @@
+﻿/* ============================================================
+   MathQuest - Responsividade
+   ============================================================
+   Mobile-first: tablet e celular sao prioridade
+   (ele provavelmente vai usar no tablet/celular)
+   ============================================================ */
+
+/* --- Mobile (padrao) --- */
+@media (max-width: 480px) {
+    :root {
+        --font-size-2xl: 1.75rem;
+        --font-size-3xl: 2.25rem;
+    }
+
+    #app {
+        padding: var(--space-sm);
+    }
+
+    .screen {
+        max-width: 100%;
+    }
+}
+
+/* --- Tablet --- */
+@media (min-width: 481px) and (max-width: 1024px) {
+    #app {
+        padding: var(--space-lg);
+    }
+}
+
+/* --- Desktop --- */
+@media (min-width: 1025px) {
+    #app {
+        padding: var(--space-2xl);
+    }
+}

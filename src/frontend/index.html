@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="MathQuest - Aprenda matematica de verdade">
+    <meta name="theme-color" content="#1A1A2E">
+    <title>MathQuest</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="assets/images/icon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+    <div id="app"></div>
+    <script src="assets/js/data/tricks.js"></script>
+    <script src="assets/js/data/challenges.js"></script>
+    <script src="assets/js/engine/storageManager.js"></script>
+    <script src="assets/js/engine/animationEngine.js"></script>
+    <script src="assets/js/engine/progressionEngine.js"></script>
+    <script src="assets/js/operations/addition.js"></script>
+    <script src="assets/js/operations/subtraction.js"></script>
+    <script src="assets/js/operations/multiplication.js"></script>
+    <script src="assets/js/operations/division.js"></script>
+    <script src="assets/js/ui/rewards.js"></script>
+    <script src="assets/js/modes/discoveryMode.js"></script>
+    <script src="assets/js/modes/challengeMode.js"></script>
+    <script src="assets/js/modes/detectiveMode.js"></script>
+    <script src="assets/js/engine/soundEngine.js"></script>
+    <script src="assets/js/engine/gameEngine.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(reg => console.log('[PWA] Service Worker registrado:', reg.scope))
+                    .catch(err => console.warn('[PWA] Erro no SW:', err));
+            });
+        }
+    </script>
+</body>
+</html>
