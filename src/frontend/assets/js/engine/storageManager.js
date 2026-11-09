@@ -17,8 +17,7 @@ const StorageManager = (() => {
         if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
             return 'http://localhost:8001';
         }
-        // Produção: alterar quando fizer deploy do backend
-        return 'http://localhost:8001';
+        return 'https://mathquest-qh53.onrender.com';
     })();
 
     const DEFAULT_PROGRESS = { nivel: 1, acertosConsecutivos: 0, totalAcertos: 0, totalErros: 0, fluencia: 0, tempos: [] };
@@ -153,7 +152,7 @@ const StorageManager = (() => {
             modo: result.mode || 'desafio',
             nivel: nivel || 1,
             acertou: result.correct,
-            tempo_segundos: result.responseTime || 0
+            tempo_segundos: Math.round((result.responseTime || 0) / 1000 * 100) / 100
         };
 
         if (!navigator.onLine || !getToken()) {

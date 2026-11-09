@@ -1,8 +1,10 @@
 /**
- * MathQuest - Service Worker
- * Estratégia: Network-First para desenvolvimento, Cache-First para assets estáticos.
+ * MathQuest - Service Worker (definitivo)
+ * Cache-First: assets estaticos (CSS, JS, imagens, sons)
+ * Network-First: HTML (sempre busca versao nova)
+ * Nunca cachear: /pai/, chamadas API, extensoes do Chrome
  */
-const CACHE_NAME = 'mathquest-v3';
+const CACHE_NAME = 'mathquest-v4';
 const ASSETS_TO_CACHE = [
     '/',
     '/index.html',
@@ -31,58 +33,69 @@ const ASSETS_TO_CACHE = [
     '/assets/images/icon.svg'
 ];
 
-// Instalação: Salva os arquivos estáticos no cache
+// Instalacao: salva assets estaticos no cache
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll(ASSETS_TO_CACHE);
-        })
+        caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS_TO_CACHE))
     );
     self.skipWaiting();
 });
 
-// Ativação: Limpa caches antigos
+// Ativacao: limpa caches antigos
 self.addEventListener('activate', (event) => {
     event.waitUntil(
-        caches.keys().then((cacheNames) => {
-            return Promise.all(
-                cacheNames.map((cacheName) => {
-                    if (cacheName !== CACHE_NAME) {
-                        return caches.delete(cacheName);
-                    }
-                })
-            );
-        })
+        caches.keys().then((names) =>
+            Promise.all(names.map((n) => n !== CACHE_NAME ? caches.delete(n) : undefined))
+        )
     );
     self.clients.claim();
 });
 
-// Interceptação de rede
+// Interceptacao de rede
 self.addEventListener('fetch', (event) => {
-    // 1. FILTRO CRÍTICO: Ignora requisições que não são do próprio site (ex: chrome-extension)
-    if (!event.request.url.startsWith(self.location.origin)) {
+    const url = new URL(event.request.url);
+
+    // Ignora: extensoes do Chrome, outros dominios internos
+    if (!url.protocol.startsWith('http')) return;
+
+    // Ignora: metodos que nao sao GET
+    if (event.request.method !== 'GET') return;
+
+    // NUNCA cachear: painel do pai (precisa de dados frescos)
+    if (url.pathname.startsWith('/pai')) {
+        event.respondWith(fetch(event.request));
         return;
     }
 
-    // 2. Ignora métodos que não são GET (ex: POST)
-    if (event.request.method !== 'GET') {
+    // NUNCA cachear: chamadas API (onrender, localhost:8001)
+    if (url.hostname.includes('onrender.com') || url.pathname.startsWith('/api')) {
+        event.respondWith(fetch(event.request));
         return;
     }
 
-    // 3. Estratégia: Network-First para o HTML/JS (desenvolvimento) e Cache-First para o resto
+    // Assets estaticos (CSS, JS, imagens): Cache-First
+    if (url.pathname.match(/\.(css|js|svg|png|jpg|webp|woff2|json)$/)) {
+        event.respondWith(
+            caches.match(event.request).then((cached) => {
+                if (cached) return cached;
+                return fetch(event.request).then((response) => {
+                    const clone = response.clone();
+                    caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+                    return response;
+                });
+            })
+        );
+        return;
+    }
+
+    // HTML e tudo mais: Network-First (busca novo, fallback pro cache)
     event.respondWith(
         fetch(event.request)
             .then((response) => {
-                // Se a rede respondeu, atualiza o cache com a versão nova
-                const responseClone = response.clone();
-                caches.open(CACHE_NAME).then((cache) => {
-                    cache.put(event.request, responseClone);
-                });
+                const clone = response.clone();
+                caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
                 return response;
             })
-            .catch(() => {
-                // Se a rede falhou (offline), busca no cache
-                return caches.match(event.request);
-            })
+            .catch(() => caches.match(event.request))
     );
 });
