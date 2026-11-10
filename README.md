@@ -4,6 +4,8 @@ Sistema educacional de matemática focado em compreensão, não memorização. P
 
 **Demo:** [mathquest no Netlify](https://dreamy-mandazi-f4f46b.netlify.app)
 
+**Status: ✅ Projeto Completo** — Todas as fases entregues. Construído em 3 dias de desenvolvimento intensivo.
+
 ## Sobre o Projeto
 
 O MathQuest nasceu de uma necessidade real: ensinar matemática de um jeito que faça sentido para uma criança que aprende melhor construindo do que decorando. O sistema nunca entrega a resposta pronta — ele decompõe cada operação visualmente, trata o erro como parte do processo e recompensa o raciocínio, não a memorização.
