@@ -28,3 +28,6 @@ build/
 *.pyc
 *.db-journal
 .pytest_cache/
+
+mathquest.db
+venv/
