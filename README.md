@@ -122,8 +122,8 @@ MathQuest/
 | Sons | Web Audio API |
 | PWA | Service Worker + Web App Manifest |
 | Deploy Frontend | Netlify (static hosting) |
-| Deploy Backend | Render (planejado) |
-| Banco Produção | Aiven/Supabase PostgreSQL (planejado) |
+| Deploy Backend | Render (mathquest-qh53.onrender.com) |
+| Banco Produção | Aiven PostgreSQL (pg-88fecf1) |
 
 ## Como Rodar Localmente
 
@@ -157,7 +157,7 @@ python -m http.server 8000
 - [x] Painel do Pai com gráficos (Chart.js)
 - [x] Sync offline-first
 - [ ] Deploy do backend (Render + PostgreSQL)
-- [ ] Service Worker definitivo (Network-First)
+- [x] Service Worker definitivo (Network-First, Cache-First assets, /pai/ sem cache)
 - [ ] Animações pedagógicas avançadas
 - [ ] Empacotamento para lojas (PWABuilder/Capacitor)
 - [ ] Fase 3: Lógica computacional (condicionais, loops, variáveis com blocos visuais)
