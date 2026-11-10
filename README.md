@@ -158,9 +158,9 @@ python -m http.server 8000
 - [x] Sync offline-first
 - [x] Deploy do backend (Render + PostgreSQL)
 - [x] Service Worker definitivo (Network-First, Cache-First assets, /pai/ sem cache)
-- [ ] Animações pedagógicas avançadas
+- [x] Animações pedagógicas avançadas (Passar o 10, divisão com resto, decomposição)
 - [ ] Empacotamento para lojas (PWABuilder/Capacitor)
-- [ ] Fase 3: Lógica computacional (condicionais, loops, variáveis com blocos visuais)
+- [x] Fase 3: Máquina Matemática (10 fases, encadeamento de operações)
 
 ## Licença
 
