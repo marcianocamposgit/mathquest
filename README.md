@@ -156,7 +156,7 @@ python -m http.server 8000
 - [x] Backend FastAPI com auth e multi-usuário
 - [x] Painel do Pai com gráficos (Chart.js)
 - [x] Sync offline-first
-- [ ] Deploy do backend (Render + PostgreSQL)
+- [x] Deploy do backend (Render + PostgreSQL)
 - [x] Service Worker definitivo (Network-First, Cache-First assets, /pai/ sem cache)
 - [ ] Animações pedagógicas avançadas
 - [ ] Empacotamento para lojas (PWABuilder/Capacitor)
