@@ -84,6 +84,7 @@ const GameEngine = (() => {
             + '<div style="text-align:center; margin-top:var(--space-xl); display:flex; gap:16px; justify-content:center;">'
             + '<button id="mute-btn" onclick="GameEngine.toggleMute()" style="background:none; border:1px solid var(--color-accent)33; color:var(--color-accent); padding:var(--space-sm) var(--space-lg); border-radius:var(--radius-md); cursor:pointer; font-family:var(--font-family-main);">🔊 Som</button>'
             + '<button onclick="GameEngine.showAchievements()" style="background:none; border:1px solid var(--color-accent)33; color:var(--color-accent); padding:var(--space-sm) var(--space-lg); border-radius:var(--radius-md); cursor:pointer; font-family:var(--font-family-main);">🏆 Conquistas</button>'
+            + '<button onclick="BuilderMode.showLevelSelect()" style="background:none; border:1px solid var(--color-accent)33; color:var(--color-accent); padding:var(--space-sm) var(--space-lg); border-radius:var(--radius-md); cursor:pointer; font-family:var(--font-family-main);">\u2699\uFE0F M\u00e1quina</button>'
             + '</div></div>';
     }
 
@@ -134,6 +135,7 @@ const GameEngine = (() => {
 
         if (modeKey === 'descoberta') { DiscoveryMode.start(state.operation, opModule, state.level); }
         else if (modeKey === 'desafio') { ChallengeMode.start(state.operation, opModule, state.level); }
+        else if (modeKey === 'builder') { BuilderMode.showLevelSelect(); return; }
         else if (modeKey === 'detetive') { DetectiveMode.start(state.operation, opModule, state.level); }
     }
 
