@@ -159,7 +159,7 @@ python -m http.server 8000
 - [x] Deploy do backend (Render + PostgreSQL)
 - [x] Service Worker definitivo (Network-First, Cache-First assets, /pai/ sem cache)
 - [x] Animações pedagógicas avançadas (Passar o 10, divisão com resto, decomposição)
-- [ ] Empacotamento para lojas (PWABuilder/Capacitor)
+- [x] ~~Empacotamento para lojas~~ (descartado: PWA via Chrome ja atende, politicas de apps infantis inviabilizam)
 - [x] Fase 3: Máquina Matemática (10 fases, encadeamento de operações)
 
 ## Licença
